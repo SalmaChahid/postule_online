@@ -14,6 +14,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
@@ -25,7 +27,7 @@
 
 <body class="bg-white">
     <!-- Navbar -->
-    <header class="body-font bg-[#003366]">
+    <header class="body-font bg-[#003366] mb-2">
         <div class="container mx-auto flex flex-wrap px-8 py-4 flex-col md:flex-row items-center">
             <h1 class="flex title-font  items-center text-[#f1f1f1] md:mb-0 text-3xl font-extrabold ml-7">
                 Web Agency
@@ -33,200 +35,193 @@
         </div>
     </header>
 
-    <!-- Section 1 -->
     <section class="text-gray-600 body-font bg-[#FAFAFA]">
-        <div class="container mx-auto flex px-20 py-2 md:flex-row flex-col items-center">
-            <div class="lg:max-w-lg lg:w-full md:w-1/2 w-/6 mb-10 md:mb-0">
-                <img class="object-cover object-center rounded" alt="hero" src="{{ asset('img/img.png') }}"
-                    alt="Profile Image">
-            </div>
-            <div class=" md:w-1/2 lg:pl-10 md:pl-16 flex flex-col  md:text-left items-center justify-center">
-                <h1 class="text-center title-font sm:text-4xl text-3xl mb-4  font-medium text-gray-900">Agence web d'emploi
-                </h1>
-                <p class=" leading-relaxed text-center"> Vous pouvez soumettre votre candidature pour toute opportunité
-                    disponible au sein de notre entreprise .</p>
-                <div class="flex justify-center">
-                    <button onclick="document.getElementById('form').scrollIntoView({ behavior: 'smooth' });"
-                        class="font-bold mt-6 inline-block px-6 py-3 text-white bg-[#003366] rounded-lg shadow-lg hover:bg-blue-700 transition cursor-pointer ">
-                        Soumettre maintenant
-                    </button>
+        <div class=" mx-auto flex px-2 sm:px-8 md:px-12 py-3 md:flex-row flex-col  ">
+            <div class="lg:max-w-lg lg:w-full md:w-1/2 w-full   md:mb-0 p-4 sm:p-6 ">
+                <div class="lg:pl-6 md:pl-8 flex flex-col md:text-left items-center justify-center">
+                    <h1 class="text-center title-font sm:text-3xl text-3xl mb-3 font-medium text-gray-900">Agence web d'emploi</h1>
+                    <p class="leading-relaxed text-center text-sm w-[90%] mb-2 ">Vous pouvez soumettre votre candidature pour toute opportunité disponible au sein de notre entreprise.</p>
                 </div>
+                <!-- تعديل حجم الصورة وإضافة ظل وتأثيرات -->
+                <div class="">
+                    <img class="object-cover object-center w-4xl mt-2 m-auto" 
+                         alt="hero" 
+                         src="{{ asset('img/img1.png') }}" 
+                         alt="Profile Image">
+                </div>
+            </div>
+    
+            <!-- Form -->
+            <div class="w-full mx-auto p-4 sm:p-6" id="form">
+                <form action="{{ route('candidature.store') }}#demande" method="POST" enctype="multipart/form-data" id="demande">
+                    @csrf
+                    <div class="grid md:grid-cols-2 gap-8 justify-center">
+                        <!-- Informations Personnelles -->
+                        <div>
+                            <h2 class="text-lg font-semibold mb-3 text-[#003366]">Informations Personnelles</h2>
+                
+                            <div class="space-y-2">
+                                <div>
+                                    <label for="nom" class="text-xs block font-medium text-gray-800 mb-1">Nom</label>
+                                    <input type="text" name="nom" id="nom" required
+                                        class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                </div>
+                
+                                <div>
+                                    <label for="prenom" class="block font-medium text-gray-800 mb-1 text-xs">Prénom</label>
+                                    <input type="text" name="prenom" id="prenom" required
+                                        class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                </div>
+                
+                                <div>
+                                    <label for="tel" class="block font-medium text-gray-800 mb-1 text-xs">Téléphone</label>
+                                    <input type="tel" name="tel" id="tel" required
+                                        class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                </div>
+                
+                                <div>
+                                    <label for="email" class="block font-medium text-gray-800 mb-1 text-xs">E-mail</label>
+                                    <input type="email" name="email" id="email" required
+                                        class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                </div>
+                
+                                <div>
+                                    <label for="ville" class="block font-medium text-gray-800 mb-1 text-xs">Ville</label>
+                                    <select name="ville" id="ville" required
+                                        class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                        <option value="" selected disabled hidden></option>
+                                    </select>
+                                </div>
+                
+                                <div>
+                                    <label for="type_piece" class="block font-medium text-gray-800 mb-1 text-xs">Type de Piece</label>
+                                    <select name="type_piece" id="type_piece" required
+                                        class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                        <option value="" selected disabled hidden></option>
+                                        <option value="CIN">CIN</option>
+                                        <option value="Passport">Passport</option>
+                                        <option value="Freelance">Carte Sejour</option>
+                                        <option value="Autre">Autre</option>
+                                    </select>
+                                </div>
+                                <div id="otherField" style="display:none">
+                                    <label for="autre" class="block font-medium text-gray-800 mb-1 text-xs">Autre</label>
+                                    <input type="text" name="autre" id="autre" class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                </div>
+                
+                                <div>
+                                    <label for="num_piece" class="block font-medium text-gray-800 mb-1 text-xs">Num Piece</label>
+                                    <input type="text" name="num_piece" required
+                                        class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Informations Professionnelles -->
+                        <div>
+                            <h2 class="text-lg font-semibold mb-3 text-[#003366]">Informations Professionnelles</h2>
+                
+                            <div class="space-y-2">
+                                <div>
+                                    <label for="offre_d_emploi" class="block font-medium text-gray-800 mb-1 text-xs">Offre d'emploi</label>
+                                    <select name="offre_d_emploi" id="offre_d_emploi" required
+                                        class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                        <option value="" selected disabled hidden></option>
+                                        <option value="Demande_d'emploi">Demande d'emploi</option>
+                                        <option value="Demande_de_stage">Demande de stage</option>
+                                        <option value="Freelance">Freelance</option>
+                                        <option value="Formation">Formation</option>
+                                    </select>
+                                </div>
+                
+                                <div>
+                                    <label for="fonction" class="block font-medium text-gray-800 mb-1 text-xs">Fonction</label>
+                                    <select name="fonction" id="fonction" required
+                                        class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                        <option value="" selected disabled hidden></option>
+                                        @foreach($fonctions as $fonction)
+                                            <option value="{{ $fonction->nom }}">{{ $fonction->nom }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                
+                                <div>
+                                    <label for="type_de_fonction" class="block font-medium text-gray-800 mb-1 text-xs">Type de fonction</label>
+                                    <select name="type_de_fonction" id="type_de_fonction" required
+                                        class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                        <option value="" selected disabled hidden></option>
+                                    </select>
+                                </div>
+                
+                                <div>
+                                    <label for="niveau_d_étude" class="block font-medium text-gray-800 mb-1 text-xs">Niveau d'étude</label>
+                                    <select name="niveau_d_étude" id="niveau_d_étude" required
+                                        class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                        <option value="" selected disabled hidden></option>
+                                        <option value="Bac">Bac</option>
+                                        <option value="Bac+2">Bac+2</option>
+                                        <option value="Bac+3">Bac+3</option>
+                                        <option value="Bac+4">Bac+4</option>
+                                        <option value="Bac+5">Bac+5</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="cv" class="block font-medium text-gray-800 mb-1 text-xs">Télécharger CV</label>
+                                    <input type="file" name="cv" id="cv" accept=".pdf,.doc,.docx" required
+                                        class="w-full text-xs text-gray-600 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:font-semibold file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200">
+                                </div>
+                
+                                <div>
+                                    <label for="message" class="block font-medium text-gray-800 mb-1 text-xs">Message De motivation</label>
+                                    <textarea name="message" maxlength="1081" id="message" rows="3"
+                                        class="w-full border-black border-1 focus:border-[#003366] px-2 py-1 outline-none focus:border-2 text-sm"></textarea>
+                                </div>
+                                
+                                <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                               
+                                <div class=" flex justify-center">
+                                <button type="submit" class="px-6 py-1.5 bg-[#003366] text-white rounded-lg font-semibold hover:bg-blue-700 cursor-pointer text-sm">
+                                    Envoyer
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="flex lg:justify-end sm:justify-center space-x-3 mt-4">
+                        <!-- رسالة النجاح أو الخطأ على الجهة اليسرى -->
+                        <div class="flex items-center space-x-3 mr-3">
+                            @if(session('success'))
+                                <div class="bg-green-500 text-center text-white p-2 rounded text-xs">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            @if ($errors->any())
+                                <div class="bg-red-500 text-center text-white p-2 rounded text-xs">
+                                    @foreach ($errors->all() as $error)
+                                        <p>{{ $error }}</p>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                
+                        <!-- الزر في الجهة اليمنى -->
+
+                    </div>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- Form -->
-    <div class="max-w-4xl mx-auto  p-10 mt-12" id="form">
-        <!-- <h1 class="text-2xl font-extrabold mb-8 text-center text-gray-900">Votre Demande</h1> -->
 
-        <form action="{{ route('candidature.store') }}#demande" method="POST" enctype="multipart/form-data" id="demande">
-            @csrf
-            <div class="grid md:grid-cols-2 lg:gap-50 gap-8 justify-center">
-                <!-- Informations Personnelles -->
-                <div>
-                    <h2 class="text-xl font-semibold mb-6 text-[#003366]">Informations Personnelles</h2>
-        
-                    <div class="space-y-1">
-                        <div>
-                            <label for="nom" class="text-sm block font-medium text-gray-800 mb-2">Nom</label>
-                            <input type="text" name="nom" id="nom" required
-                                class="w-full  border-black border-1 focus:border-[#003366]  py-1 px-3 outline-none focus:border-2">
-                        </div>
-        
-                        <div>
-                            <label for="prenom" class="block font-medium text-gray-800 mb-2 text-sm">Prénom</label>
-                            <input type="text" name="prenom" id="prenom" required
-                                class="w-full  border-black border-1 focus:border-[#003366] py-1 px-3 outline-none focus:border-2">
-                        </div>
-        
-                        <div>
-                            <label for="tel" class="block font-medium text-gray-800 mb-2 text-sm">Téléphone</label>
-                            <input type="tel" name="tel" id="tel" required
-                                class="w-full  border-black border-1 focus:border-[#003366] py-1 px-3 outline-none focus:border-2">
-                        </div>
-        
-                        <div>
-                            <label for="email" class="block font-medium text-gray-800 mb-2 text-sm">E-mail</label>
-                            <input type="email" name="email" id="email" required
-                                class="w-full  border-black border-1 focus:border-[#003366]  py-1 px-3 outline-none focus:border-2">
-                        </div>
-        
-                        <div>
-                            <label for="ville" class="block font-medium text-gray-800 mb-2 text-sm">Ville</label>
-                            <select name="ville" id="ville" required
-                                class="select2  w-full border-black border-1 focus:border-[#003366] py-1.5 px-3 outline-none focus:border-2">
-                                <option value="" selected disabled hidden></option>
-                            </select>
-                        </div>
-        
-                        <div>
-                            <label for="type_piece" class="block font-medium text-gray-800 mb-2 text-sm">Type de Piece
-                            </label>
-                            <select name="type_piece" id="type_piece" required
-                                class="select2 w-full  border-black border-1  focus:border-[#003366] py-1.5 px-3 outline-none focus:border-2 ">
-                                <option value="" selected disabled hidden></option>
-                                <option value="CIN">CIN</option>
-                                <option value="Passport">Passport</option>
-                                <option value="Freelance">Carte Sejour</option>
-                                <option value="Autre">Autre</option>
-                            </select>
-                        </div>
-                        <div id="otherField" style="display:none">
-                            <label for="autre" class="block font-medium text-gray-800 mb-2 text-sm">Autre</label>
-                            <input type="text" name="autre" id="autre" class="w-full  border-black border-1 focus:border-[#003366] py-1 px-3 outline-none focus:border-2">
-                        </div>
-        
-                        <div>
-                            <label for="num_piece" class="block font-medium text-gray-800 mb-2 text-sm">Num Piece</label>
-                            <input type="text" name="num_piece" required
-                                class="w-full  border-black border-1 focus:border-[#003366] py-1 px-3 outline-none focus:border-2">
-                        </div>
-        
-                    </div>
-                </div>
-        
-                <!-- Informations Professionnelles -->
-                <div>
-                    <h2 class="text-xl font-semibold mb-6 text-[#003366]">Informations Professionnelles</h2>
-        
-                    <div class="space-y-1">
-                        <div>
-                            <label for="offre_d_emploi" class="block font-medium text-gray-800 mb-2 text-sm">Offre
-                                d'emploi</label>
-                            <select name="offre_d_emploi" id="offre_d_emploi" required
-                                class="select2 w-full  border-black border-1  focus:border-[#003366] py-1.5 px-3 outline-none focus:border-2">
-                                <option value="" selected disabled hidden></option>
-                                <option value="Demande_d'emploi">Demande d'emploi</option>
-                                <option value="Demande_de_stage">Demande de stage</option>
-                                <option value="Freelance">Freelance</option>
-                                <option value="Formation">Formation</option>
-                            </select>
-                        </div>
-        
-                        <div>
-                            <label for="fonction" class="block font-medium text-gray-800 mb-2 text-sm">fonction</label>
-                            <select name="fonction" id="fonction" required
-                                class="select2 w-full border-black border-1 focus:border-[#003366] py-1.5 px-3 outline-none focus:border-2">
-                                <option value="" selected disabled hidden></option>
-                                @foreach($fonctions as $fonction)
-                                    <option value="{{ $fonction->nom }}">{{ $fonction->nom }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-        
-                        <div>
-                            <label for="type_de_fonction" class="block font-medium text-gray-800 mb-2 text-sm">type de
-                                fonction</label>
-                            <select name="type_de_fonction" id="type_de_fonction" required
-                                class="select2 w-full border-black border-1 focus:border-[#003366] py-1.5 px-3 outline-none focus:border-2">
-                                <option value="" selected disabled hidden></option>
-                            </select>
-                        </div>
-        
-                        <div>
-                            <label for="niveau_d_étude" class="block font-medium text-gray-800 mb-2 text-sm">Niveau
-                                d'étude</label>
-                            <select name="niveau_d_étude" id="niveau_d_étude" required
-                                class="select2 w-full border-black border-1 focus:border-[#003366] py-1.5 px-3 outline-none focus:border-2" >
-                                <option value="" selected disabled hidden></option>
-                                <option value="Bac">Bac</option>
-                                <option value="Bac+2">Bac+2</option>
-                                <option value="Bac+3">Bac+3</option>
-                                <option value="Bac+4">Bac+4</option>
-                                <option value="Bac+5">Bac+5</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="cv" class="block font-medium text-gray-800 mb-2 text-sm">Télécharger CV</label>
-                            <input type="file" name="cv" id="cv" accept=".pdf,.doc,.docx" required class="w-full  text-gray-600 file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0
-                                file:font-semibold file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200">
-                        </div>
-        
-                        <div>
-                            <label for="message" class="block font-medium text-gray-800 mb-2 text-sm ">Message De
-                                motivation</label>
-                            <textarea name="message" id="message" rows="3"
-                                class="w-full  border-black border-1 focus:border-[#003366]  px-3 py-1 outline-none focus:border-2"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="flex lg:justify-end sm:justify-center space-x-4 mt-7">
-                <!-- رسالة النجاح أو الخطأ على الجهة اليسرى -->
-                <div class="flex items-center space-x-4 mr-4">
-                    @if(session('success'))
-                        <div class="bg-green-500 text-center text-white p-3 ">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if ($errors->any())
-                        <div class="bg-red-500 text-center text-white p-3 ">
-                            @foreach ($errors->all() as $error)
-                                <p>{{ $error }}</p>
-                            @endforeach
-                        </div>
-                    @endif
-                </div>
-        
-                <!-- الزر في الجهة اليمنى -->
-                <button type="submit" class="px-8 py-2 bg-[#003366] text-white rounded-lg font-semibold hover:bg-blue-700 cursor-pointer">
-                    Envoyer
-                </button>
-            </div>
-        </form>
-        
-        
-        
-    </div>
  
 
-    <footer class=" w-full text-white py-8 bg-[#003366] mt-20 ">
+    <footer class=" w-full text-white py-8 bg-[#003366]  ">
 
         <div class="container mx-auto flex flex-wrap justify-between  ">
             <!-- Colonne 1 -->
             <div class="w-full sm:w-1/2  md:w-1/4 lg:w-1/6 px-4 mb-4 ">
-                <h2 class="text-lg font-bold mb-4">À propos</h2>
+                <h2 class="text-md font-bold mb-4">À propos</h2>
                 <ul>
                     <li><a href="#" class=" block hover:text-gray-300 text-sm">Qui sommes-nous?</a></li>
                     <li><a href="#" class="block hover:text-gray-300 text-sm">Notre équipe</a></li>
@@ -236,7 +231,7 @@
 
             <!-- Colonne 2 -->
             <div class="w-full sm:w-1/2 md:w-1/4 lg:w-1/6 px-4 mb-4">
-                <h2 class="text-lg font-bold mb-4">Services</h2>
+                <h2 class="text-md font-bold mb-4">Services</h2>
                 <ul>
                     @foreach($fonctions as $fonction)
                     <li><a href="#" class="block hover:text-gray-300 text-sm">{{ ucfirst(strtolower($fonction->nom ))}}</a></li>
@@ -246,7 +241,7 @@
 
             <!-- Colonne 3 -->
             <div class="w-full sm:w-1/2 md:w-1/4 lg:w-1/6 px-4 mb-4">
-                <h2 class="text-lg font-bold mb-4">Contact</h2>
+                <h2 class="text-md font-bold mb-4">Contact</h2>
                 <ul>
                     <li><a href="#" class="block hover:text-gray-300 text-sm">Contactez-nous</a></li>
                     <li><a href="#" class="block hover:text-gray-300 text-sm">Support</a></li>
@@ -256,7 +251,7 @@
 
             <!-- Colonne 4 -->
             <div class="w-full sm:w-1/2 md:w-1/4 lg:w-1/6 px-4 mb-4">
-                <h2 class="text-lg font-bold mb-4">Réseaux sociaux</h2>
+                <h2 class="text-md font-bold mb-4">Réseaux sociaux</h2>
                 <ul>
                     <li class="flex align-items"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-facebook mt-1" viewBox="0 0 16 16">

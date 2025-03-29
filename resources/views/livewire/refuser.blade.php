@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>Web Agency</title>
 </head>
 <body>
@@ -87,10 +89,10 @@
                                                                 Accepter
                                                             </button>
                                                         </form>
-                                                        <form onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce candidat ? Cette action est irréversible.');" action="{{ route('delete.candidat', $candidate->id) }}" id="delete-form-{{ $candidate->id }}" class="delete-form" method="POST">
+                                                        <form id="delete-form-{{ $candidate->id }}" action="{{ route('delete.candidat', $candidate->id) }}" method="POST" class="delete-form">
                                                             @csrf
-                                                            @method('DELETE') <!-- تستخدم لتحديد أن هذه عملية حذف -->
-                                                            <button data-id="{{ $candidate->id }}" type="submit"  class=" delete px-2 py-1 cursor-pointer bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none">
+                                                            @method('DELETE') 
+                                                            <button type="button" onclick="confirmDelete({{ $candidate->id }})" class="delete px-2 py-1 cursor-pointer bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none">
                                                                 Supprimer
                                                             </button>
                                                         </form>
@@ -172,6 +174,24 @@
     </div>
 
     <script>
+
+
+function confirmDelete(candidateId) {
+    Swal.fire({
+        title: "Êtes-vous sûr ?",
+        text: "Voulez-vous vraiment supprimer ce candidat ? Cette action est irréversible.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Oui, supprimer !",
+        cancelButtonText: "Annuler"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('delete-form-' + candidateId).submit();
+        }
+    });
+}
         function toggleMessage(candidateId) {
             var fullMessage = document.getElementById('full-message-' + candidateId);
             var messageDiv = document.getElementById('message-' + candidateId);

@@ -70,29 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     typePieceSelect.addEventListener('change', updateAutreField);
 });
 
-$(document).ready(function() {
-    $(".delete-btn").click(function(e) {
-        e.preventDefault();
-        var adminId = $(this).data("id");
-
-        if (confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.")) {
-            $("#delete-form-" + adminId).submit();
-        }
-    });
-});
 
 
-$(document).ready(function() {
-    $(".delete").click(function(e) {
-        e.preventDefault(); // Prevent the default form submission
 
-        var candidateId = $(this).data("id"); // Get the candidate ID from the button
-
-        // Show a confirmation dialog
-        if (confirm("Êtes-vous sûr de vouloir supprimer ce candidat ? Cette action est irréversible.")) {
-            // If confirmed, submit the associated form
-            $("#delete-form-" + candidateId).submit();
-        }
-    });
-});
 

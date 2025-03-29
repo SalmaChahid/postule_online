@@ -22,17 +22,23 @@ class CandidatController extends Controller
         $validated = $request->validate([
             'nom' => 'required|string|max:255|',
             'prenom' => 'required|string|max:255',
-            'tel' => 'required|string|max:15',
-            'email' => 'required|email|max:255',
+            'tel' => 'required|string|unique:candidats,tel|max:15',
+            'email' => 'required|unique:candidats,email|email|max:255',
             'ville' => 'required|string',
             'type_piece' => 'required|string',
-            'num_piece' => 'required|string',
+            'num_piece' => 'required|unique:candidats,num_piece|string',
             'offre_d_emploi' => 'required|string',
             'fonction' => 'required|string',
             'type_de_fonction' => 'required|string',
             'niveau_d_étude' => 'required|string',
             'cv' => 'required|mimes:pdf,doc,docx|max:10240',
-            'message' => 'nullable|string',
+            'message' => 'nullable|string|max:1081|unique:candidats,message',
+        ],[
+            'tel.unique' => 'le téléphone doit étre unique',
+            'email.unique' => 'Email doit étre unique',
+            'num_piece.unique' => 'Numéro de piece doit étre unique',
+            'message.unique' => 'le message doit étre unique',
+
         ]);
     
         if ($validated['type_piece'] === 'Autre') {
