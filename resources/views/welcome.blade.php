@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Web Agency</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+    
 
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
@@ -62,31 +64,31 @@
                 
                             <div class="space-y-2">
                                 <div>
-                                    <label for="nom" class="text-xs block font-medium text-gray-800 mb-1">Nom</label>
+                                    <label for="nom" class="text-xs block font-medium text-gray-800 mb-1">Nom<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <input type="text" name="nom" id="nom" required
                                         class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                 </div>
                 
                                 <div>
-                                    <label for="prenom" class="block font-medium text-gray-800 mb-1 text-xs">Prénom</label>
+                                    <label for="prenom" class="block font-medium text-gray-800 mb-1 text-xs">Prénom<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <input type="text" name="prenom" id="prenom" required
                                         class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                 </div>
                 
                                 <div>
-                                    <label for="tel" class="block font-medium text-gray-800 mb-1 text-xs">Téléphone</label>
+                                    <label for="tel" class="block font-medium text-gray-800 mb-1 text-xs">Téléphone<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <input type="tel" name="tel" id="tel" required
                                         class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                 </div>
                 
                                 <div>
-                                    <label for="email" class="block font-medium text-gray-800 mb-1 text-xs">E-mail</label>
+                                    <label for="email" class="block font-medium text-gray-800 mb-1 text-xs">E-mail<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <input type="email" name="email" id="email" required
                                         class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                 </div>
                 
                                 <div>
-                                    <label for="ville" class="block font-medium text-gray-800 mb-1 text-xs">Ville</label>
+                                    <label for="ville" class="block font-medium text-gray-800 mb-1 text-xs">Ville<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <select name="ville" id="ville" required
                                         class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                         <option value="" selected disabled hidden></option>
@@ -94,7 +96,7 @@
                                 </div>
                 
                                 <div>
-                                    <label for="type_piece" class="block font-medium text-gray-800 mb-1 text-xs">Type de Piece</label>
+                                    <label for="type_piece" class="block font-medium text-gray-800 mb-1 text-xs">Type de Piece<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <select name="type_piece" id="type_piece" required
                                         class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                         <option value="" selected disabled hidden></option>
@@ -105,12 +107,12 @@
                                     </select>
                                 </div>
                                 <div id="otherField" style="display:none">
-                                    <label for="autre" class="block font-medium text-gray-800 mb-1 text-xs">Autre</label>
-                                    <input type="text" name="autre" id="autre" class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                    <label for="autreF" class="block font-medium text-gray-800 mb-1 text-xs">Autre<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
+                                    <input type="text" name="autreF" id="autreF" class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                 </div>
                 
                                 <div>
-                                    <label for="num_piece" class="block font-medium text-gray-800 mb-1 text-xs">Num Piece</label>
+                                    <label for="num_piece" class="block font-medium text-gray-800 mb-1 text-xs">Num Piece<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <input type="text" name="num_piece" required
                                         class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                 </div>
@@ -123,7 +125,7 @@
                 
                             <div class="space-y-2">
                                 <div>
-                                    <label for="offre_d_emploi" class="block font-medium text-gray-800 mb-1 text-xs">Offre d'emploi</label>
+                                    <label for="offre_d_emploi" class="block font-medium text-gray-800 mb-1 text-xs">Offre d'emploi<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <select name="offre_d_emploi" id="offre_d_emploi" required
                                         class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                         <option value="" selected disabled hidden></option>
@@ -131,11 +133,12 @@
                                         <option value="Demande_de_stage">Demande de stage</option>
                                         <option value="Freelance">Freelance</option>
                                         <option value="Formation">Formation</option>
+                                        <option value="Demande_d'information">Demande d'information</option>
                                     </select>
                                 </div>
                 
                                 <div>
-                                    <label for="fonction" class="block font-medium text-gray-800 mb-1 text-xs">Fonction</label>
+                                    <label for="fonction" class="block font-medium text-gray-800 mb-1 text-xs">Fonction<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <select name="fonction" id="fonction" required
                                         class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                         <option value="" selected disabled hidden></option>
@@ -146,7 +149,7 @@
                                 </div>
                 
                                 <div>
-                                    <label for="type_de_fonction" class="block font-medium text-gray-800 mb-1 text-xs">Type de fonction</label>
+                                    <label for="type_de_fonction" class="block font-medium text-gray-800 mb-1 text-xs">Type de fonction<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <select name="type_de_fonction" id="type_de_fonction" required
                                         class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                         <option value="" selected disabled hidden></option>
@@ -154,7 +157,7 @@
                                 </div>
                 
                                 <div>
-                                    <label for="niveau_d_étude" class="block font-medium text-gray-800 mb-1 text-xs">Niveau d'étude</label>
+                                    <label for="niveau_d_étude" class="block font-medium text-gray-800 mb-1 text-xs">Niveau d'étude<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <select name="niveau_d_étude" id="niveau_d_étude" required
                                         class="select2 w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
                                         <option value="" selected disabled hidden></option>
@@ -163,10 +166,15 @@
                                         <option value="Bac+3">Bac+3</option>
                                         <option value="Bac+4">Bac+4</option>
                                         <option value="Bac+5">Bac+5</option>
+                                        <option value="Autre">Autre</option>
                                     </select>
                                 </div>
+                                <div id="otherFieldd" style="display:none">
+                                    <label for="autreN" class="block font-medium text-gray-800 mb-1 text-xs">Autre<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
+                                    <input type="text" name="autreN" id="autreN" class="w-full border-black border-1 focus:border-[#003366] py-1 px-2 outline-none focus:border-2 text-sm">
+                                </div>
                                 <div>
-                                    <label for="cv" class="block font-medium text-gray-800 mb-1 text-xs">Télécharger CV</label>
+                                    <label for="cv" class="block font-medium text-gray-800 mb-1 text-xs">Télécharger CV<span class="text-red-500 text-lg font-bold ml-1 align-middle">*</span></label>
                                     <input type="file" name="cv" id="cv" accept=".pdf,.doc,.docx" required
                                         class="w-full text-xs text-gray-600 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:font-semibold file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200">
                                 </div>
@@ -190,17 +198,16 @@
                 
                     <div class="flex lg:justify-end sm:justify-center space-x-3 mt-4">
                         <!-- رسالة النجاح أو الخطأ على الجهة اليسرى -->
-                        <div class="flex items-center space-x-3 mr-3">
+                        <div class="flex items-center space-x-3 p-3">
                             @if(session('success'))
                                 <div class="bg-green-500 text-center text-white p-2 rounded text-xs">
                                     {{ session('success') }}
                                 </div>
                             @endif
-                            @if ($errors->any())
+                            @if (session('error'))
                                 <div class="bg-red-500 text-center text-white p-2 rounded text-xs">
-                                    @foreach ($errors->all() as $error)
-                                        <p>{{ $error }}</p>
-                                    @endforeach
+                                    {{ session('error') }}
+
                                 </div>
                             @endif
                         </div>

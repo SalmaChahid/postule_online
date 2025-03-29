@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 <title>Web Agency</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
     <div class="h-screen">
@@ -102,7 +104,7 @@
                                                     <form action="{{ route('delete.candidat', $candidate->id) }}" id="delete-form-{{ $candidate->id }}" class="delete-form" method="POST">
                                                         @csrf
                                                         @method('DELETE') <!-- تستخدم لتحديد أن هذه عملية حذف -->
-                                                        <button data-id="{{ $candidate->id }}" type="submit" class=" delete px-2 py-1 cursor-pointer bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none">
+                                                        <button type="button" onclick="confirmDelete({{ $candidate->id }})" class="delete px-2 py-1 cursor-pointer bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none">
                                                             Supprimer
                                                         </button>
                                                     </form>
@@ -221,6 +223,41 @@
                 document.body.style.overflow = 'auto'; // إعادة التمرير
             }
         }
+
+        function confirmDelete(candidateId) {
+    Swal.fire({
+        title: "Êtes-vous sûr ?",
+        text: "Voulez-vous vraiment supprimer ce candidat ? Cette action est irréversible.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Oui, supprimer !",
+        cancelButtonText: "Annuler"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Si confirmé, soumettre le formulaire de suppression
+            let form = document.createElement("form");
+            form.method = "POST";
+            form.action = "{{ route('delete.candidat', '') }}/" + candidateId;
+
+            var csrfToken = document.createElement("input");
+            csrfToken.type = "hidden";
+            csrfToken.name = "_token";
+            csrfToken.value = "{{ csrf_token() }}";
+            form.appendChild(csrfToken);
+
+            var methodField = document.createElement("input");
+            methodField.type = "hidden";
+            methodField.name = "_method";
+            methodField.value = "DELETE";
+            form.appendChild(methodField);
+
+            document.body.appendChild(form);
+            form.submit(); // Soumettre le formulaire
+        }
+    });
+}
     </script>
 </body>
 </html>

@@ -22,27 +22,37 @@ class CandidatController extends Controller
         $validated = $request->validate([
             'nom' => 'required|string|max:255|',
             'prenom' => 'required|string|max:255',
-            'tel' => 'required|string|unique:candidats,tel|max:15',
-            'email' => 'required|unique:candidats,email|email|max:255',
+            'tel' => 'required|string|max:15',
+            'email' => 'required|email|max:255',
             'ville' => 'required|string',
             'type_piece' => 'required|string',
-            'num_piece' => 'required|unique:candidats,num_piece|string',
+            'num_piece' => 'required|string',
             'offre_d_emploi' => 'required|string',
             'fonction' => 'required|string',
             'type_de_fonction' => 'required|string',
             'niveau_d_étude' => 'required|string',
             'cv' => 'required|mimes:pdf,doc,docx|max:10240',
-            'message' => 'nullable|string|max:1081|unique:candidats,message',
-        ],[
-            'tel.unique' => 'le téléphone doit étre unique',
-            'email.unique' => 'Email doit étre unique',
-            'num_piece.unique' => 'Numéro de piece doit étre unique',
-            'message.unique' => 'le message doit étre unique',
-
+            'message' => 'nullable|string|max:1081',
         ]);
+
+        $existingCandidat = Candidat::where('tel', $request->input('tel'))
+        ->orWhere('email', $request->input('email'))
+        ->orWhere('num_piece', $request->input('num_piece'))
+        ->first();
+
+if ($existingCandidat) {
+    $existingFonction = strtoupper($existingCandidat->fonction);
+    $requestFonction = strtoupper($request->input('fonction'));
+    if ($existingCandidat->fonction !== $request->input('fonction')) {
+
+return redirect()->back()->with('error', 'Vous avez deja postuler avec ces inforamations ');
+}}
     
         if ($validated['type_piece'] === 'Autre') {
-            $validated['type_piece'] = $request->input('autre');  // نأخذ القيمة من حقل "autre"
+            $validated['type_piece'] = $request->input('autreF');  // نأخذ القيمة من حقل "autre"
+        }
+        if ($validated['niveau_d_étude'] === 'Autre') {
+            $validated['niveau_d_étude'] = $request->input('autreN');  // نأخذ القيمة من حقل "autre"
         }
         // تحميل الملف
         $cvPath = $request->file('cv')->store('cv_files', 'public');
